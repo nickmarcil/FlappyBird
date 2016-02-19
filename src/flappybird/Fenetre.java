@@ -136,7 +136,7 @@ public class Fenetre extends javax.swing.JFrame {
         g2=offImage.getGraphics();
         
         super.paint(g2);
-        g2.setColor(Color.green);
+        g2.setColor(Color.red);
         g2.fillRect(panneauJeu.getX(), panneauJeu.getHeight()-50, panneauJeu.getWidth() , panneauJeu.getHeight()-50);
         g2.fillRect(j1.position.x + j1.hb.p1.x, j1.position.y + j1.hb.p1.y, j1.hb.p2.x - j1.hb.p1.x, j1.hb.p2.y + j1.hb.p1.y);
         g.drawImage(offImage,0 ,0, this);
