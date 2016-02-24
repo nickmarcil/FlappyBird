@@ -5,10 +5,14 @@
  */
 package flappybird;
 
+import java.awt.Graphics;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import sun.java2d.d3d.D3DRenderQueue;
 
@@ -17,21 +21,40 @@ import sun.java2d.d3d.D3DRenderQueue;
  * @author Nick
  */
 public class MenuIntro extends javax.swing.JPanel {
-
     /**
      * Creates new form MenuIntro
      */
+    ImageIcon img;
+    
     public MenuIntro(final JFrame jf) {
         initComponents();
+        img = new ImageIcon("background.jpg");
         jf.add(this);
         jf.setVisible(true);
-        ActionListener al = new ActionListener() {
+        
+        lblCommencer.addMouseListener(new MouseListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
                 jf.setVisible(false);
             }
-        };
-        jToggleButton1.addActionListener(al);
+            
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
     }
 
     /**
@@ -44,69 +67,96 @@ public class MenuIntro extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblCommencer = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tiger Rag LET", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setText("Flappy bird");
 
-        jToggleButton1.setFont(new java.awt.Font("Bodoni MT Condensed", 0, 24)); // NOI18N
-        jToggleButton1.setText("Commencer une partie");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+        jLabel2.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
+        jLabel2.setText("Afficher les scores");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Bodoni MT Condensed", 0, 24)); // NOI18N
-        jButton1.setText("Afficher les scores");
+        jLabel3.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
+        jLabel3.setText("Quitter");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Bodoni MT Condensed", 0, 24)); // NOI18N
-        jButton2.setText("Quitter");
+        lblCommencer.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
+        lblCommencer.setText("Commencer une partie");
+        lblCommencer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblCommencerMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCommencer)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(1, 1, 1)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(jLabel3)))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(25, 25, 25)
-                .addComponent(jToggleButton1)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(lblCommencer)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addComponent(jLabel3)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+ 
+    }//GEN-LAST:event_jLabel2MousePressed
+
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel3MousePressed
+
+    private void lblCommencerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCommencerMousePressed
         Fenetre f = new Fenetre();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_lblCommencerMousePressed
 
+      public void paint(Graphics g){
+        super.paint(g);
+        g.drawImage(img.getImage(), 50, 50, null);
+  }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblCommencer;
     // End of variables declaration//GEN-END:variables
 }

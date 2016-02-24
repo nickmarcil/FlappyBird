@@ -34,7 +34,7 @@ public class Fenetre extends javax.swing.JFrame {
         @Override
         public void run() {
           // Your database code here
-           j1.position.x +=1;
+           j1.position.y +=2;
             paint(getGraphics());
         }
       }, 16,16);
@@ -87,7 +87,7 @@ public class Fenetre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panneauJeuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panneauJeuMousePressed
-        // TODO add your handling code here:
+        j1.position.y -=30;
     }//GEN-LAST:event_panneauJeuMousePressed
 
     /**
