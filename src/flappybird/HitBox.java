@@ -15,7 +15,9 @@ import java.awt.Point;
  */
 public class HitBox {
     
-     public Point p1, p2;
+     public Point point;
+     public int largeur;
+     public int hauteur;
 
     /**
      * constructeur sans paramètre
@@ -31,9 +33,10 @@ public class HitBox {
      * @param x2
      * @param y2 
      */
-    public HitBox(Point p1, Point p2) {
-        this.p1 = p1;
-        this.p2 = p2;
+    public HitBox(Point p1, int largeur, int hauteur) {
+        this.point = p1;
+        this.largeur = largeur;
+        this.hauteur = hauteur;
     }
     
     
