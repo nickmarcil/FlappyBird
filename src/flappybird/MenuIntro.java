@@ -5,13 +5,23 @@
  */
 package flappybird;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import sun.java2d.d3d.D3DRenderQueue;
@@ -26,9 +36,27 @@ public class MenuIntro extends javax.swing.JPanel {
      */
     ImageIcon img;
     
-    public MenuIntro(final JFrame jf) {
+    BufferedImage image;
+    BufferedImage imageOiseau;
+    int birdX = 0;
+    int birdY = 0;
+    int rotation = 0;
+    
+    public MenuIntro(final JFrame jf) throws IOException {
         initComponents();
-        img = new ImageIcon("background.jpg");
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Rotation information
+                rotation += 4;
+                if (rotation > 360)
+                    rotation = 0;
+                repaint();
+            }
+        },16, 16);
+        image = ImageIO.read(new File("src/images/background.jpg"));
+        imageOiseau = ImageIO.read(new File("src/images/bird.gif"));
         jf.add(this);
         jf.setVisible(true);
         
@@ -78,6 +106,9 @@ public class MenuIntro extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
         jLabel2.setText("Afficher les scores");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel2MousePressed(evt);
             }
@@ -86,6 +117,9 @@ public class MenuIntro extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
         jLabel3.setText("Quitter");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel3MousePressed(evt);
             }
@@ -94,6 +128,9 @@ public class MenuIntro extends javax.swing.JPanel {
         lblCommencer.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
         lblCommencer.setText("Commencer une partie");
         lblCommencer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCommencerMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblCommencerMousePressed(evt);
             }
@@ -148,11 +185,45 @@ public class MenuIntro extends javax.swing.JPanel {
         this.setVisible(false);
     }//GEN-LAST:event_lblCommencerMousePressed
 
-      public void paint(Graphics g){
-        super.paint(g);
-        g.drawImage(img.getImage(), 50, 50, null);
-  }
+    private void lblCommencerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCommencerMouseEntered
+        birdX = 20;
+        birdY = 80;
+    }//GEN-LAST:event_lblCommencerMouseEntered
 
+    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+        birdX = 60;
+        birdY = 145;
+    }//GEN-LAST:event_jLabel2MouseEntered
+
+    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+        birdX = 120;
+        birdY = 210;
+    }//GEN-LAST:event_jLabel3MouseEntered
+
+    public void paintComponent(Graphics g){
+        double rotationRequired = Math.toRadians (rotation);
+        AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, imageOiseau.getWidth()/2, imageOiseau.getHeight()/2);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+        // Drawing the rotated image at the required drawing locations
+          g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
+          g.drawImage(op.filter(imageOiseau, null), birdX, birdY,50,50, null);
+
+      }
+
+      public void paint (Graphics g){
+        Graphics g2;            //dessiner dans un autre graphique pour éviter que ca flash
+        Dimension d = getSize();//
+        Image offImage;
+        
+        offImage = createImage(d.width, d.height);
+        g2=offImage.getGraphics();
+        
+        
+        super.paint(g2);
+        g.drawImage(offImage,0 ,0, this);
+    }
+      
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

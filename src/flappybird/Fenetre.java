@@ -30,8 +30,6 @@ public class Fenetre extends javax.swing.JFrame {
        
         initComponents();
         timer = new Timer();
-        timer.cancel();
-        timer = new Timer();
         j1 = new Joueur();
         obstacles = new ArrayList<Obstacle>();
         obstacles.add(new Obstacle());
