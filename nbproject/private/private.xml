@@ -3,9 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/F:/javaProject/FlappyBird/src/flappybird/FlappyBird.java</file>
             <file>file:/F:/javaProject/FlappyBird/src/flappybird/Fenetre.java</file>
             <file>file:/F:/javaProject/FlappyBird/src/flappybird/MenuIntro.java</file>
+=======
+            <file>file:/C:/Users/chris/OneDrive/session%20hiver%202016/PROGRAMMATION%20EN%20ENVIRONNEMENT%20GRAPHIQUE/TP1/FlappyBird/src/flappybird/Fenetre.java</file>
+            <file>file:/C:/Users/chris/OneDrive/session%20hiver%202016/PROGRAMMATION%20EN%20ENVIRONNEMENT%20GRAPHIQUE/TP1/FlappyBird/src/flappybird/Obstacle.java</file>
+            <file>file:/C:/Users/chris/OneDrive/session%20hiver%202016/PROGRAMMATION%20EN%20ENVIRONNEMENT%20GRAPHIQUE/TP1/FlappyBird/src/flappybird/FlappyBird.java</file>
+            <file>file:/C:/Users/chris/OneDrive/session%20hiver%202016/PROGRAMMATION%20EN%20ENVIRONNEMENT%20GRAPHIQUE/TP1/FlappyBird/src/flappybird/Joueur.java</file>
+            <file>file:/C:/Users/chris/OneDrive/session%20hiver%202016/PROGRAMMATION%20EN%20ENVIRONNEMENT%20GRAPHIQUE/TP1/FlappyBird/src/flappybird/MenuIntro.java</file>
+            <file>file:/C:/Users/chris/OneDrive/session%20hiver%202016/PROGRAMMATION%20EN%20ENVIRONNEMENT%20GRAPHIQUE/TP1/FlappyBird/src/flappybird/HitBox.java</file>
+>>>>>>> 7860a4265c31f204491e02435eab833015e278fe
         </group>
     </open-files>
 </project-private>

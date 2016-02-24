@@ -9,8 +9,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
+import javafx.scene.layout.HBox;
 
 /**
  *
@@ -19,6 +21,7 @@ import java.util.Timer;
 public class Fenetre extends javax.swing.JFrame {
 
     Joueur j1;
+    ArrayList<Obstacle> obstacles;
     Timer timer;
     /**
      * Creates new form Fenetre
@@ -30,16 +33,43 @@ public class Fenetre extends javax.swing.JFrame {
         timer.cancel();
         timer = new Timer();
         j1 = new Joueur();
+        obstacles = new ArrayList<Obstacle>();
+        obstacles.add(new Obstacle());
         timer.schedule(new TimerTask() {
         @Override
         public void run() {
           // Your database code here
-           j1.position.y +=2;
-            paint(getGraphics());
+          
+          for(Obstacle ob : obstacles){
+            for (HitBox hb : ob.hb){
+                hb.point.x -=8;
+            }
         }
+          
+          j1.velocity += 1;
+           j1.position.y += 1 * j1.velocity;
+           if (j1.position.y > panneauJeu.getHeight()-60){
+               j1.position.y = panneauJeu.getHeight()-60;
+           }
+            paint(getGraphics());
+            j1.compteur ++;
+            if (j1.compteur == 150){
+               obstacles.add(new Obstacle());
+               j1.compteur = 0;
+            }
+            if(obstacles.get(0).hb.get(0).point.x < -100){
+                obstacles.remove(0);
+            }
+            
+            if (collision()){
+                System.exit(0);
+            }
+          }
+        
       }, 16,16);
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,7 +117,16 @@ public class Fenetre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panneauJeuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panneauJeuMousePressed
-        j1.position.y -=30;
+
+        // TODO add your handling code here:
+        j1.velocity -= 15;
+        if (j1.velocity < -12){
+            j1.velocity = -12;
+        }
+        else if(j1.velocity > 39){
+            j1.velocity = 40;
+        }
+      
     }//GEN-LAST:event_panneauJeuMousePressed
 
     /**
@@ -136,10 +175,37 @@ public class Fenetre extends javax.swing.JFrame {
         g2=offImage.getGraphics();
         
         super.paint(g2);
-        g2.setColor(Color.red);
+        g2.setColor(Color.green);
+        //dessin du sol
         g2.fillRect(panneauJeu.getX(), panneauJeu.getHeight()-50, panneauJeu.getWidth() , panneauJeu.getHeight()-50);
-        g2.fillRect(j1.position.x + j1.hb.p1.x, j1.position.y + j1.hb.p1.y, j1.hb.p2.x - j1.hb.p1.x, j1.hb.p2.y + j1.hb.p1.y);
+        //dessin du joueur
+        g2.fillRect(j1.position.x + j1.hb.point.x, j1.position.y + j1.hb.point.y, j1.hb.largeur, j1.hb.hauteur);
+        //dessin d'un obstacle
+        g2.setColor(Color.red);
+        for(Obstacle ob : obstacles){
+            for (HitBox hb : ob.hb){
+                g2.fillRect(hb.point.x, hb.point.y, hb.largeur, hb.hauteur);
+            }
+        }
         g.drawImage(offImage,0 ,0, this);
+    }
+    
+    public boolean collision(){
+       
+        if(j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(0).point.x){
+            for (int i = 0; i < obstacles.get(0).hb.size(); i++){
+                if(j1.hb.point.y > obstacles.get(i).hb.get(i).point.y + obstacles.get(i).hb.get(i).hauteur){
+                    return false;
+                }
+                if(j1.hb.point.y + j1.hb.hauteur < obstacles.get(i).hb.get(i).point.y){
+                    return false;
+                }
+                else 
+                    return true;
+            }
+        }
+        
+        return false;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

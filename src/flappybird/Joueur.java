@@ -17,14 +17,16 @@ public class Joueur {
     
     HitBox hb;
     Point position;
+    int velocity;
+    int compteur = 0;
 
     /**
      * constructeur sans paramètre
      */
     public Joueur() {
-        hb = new HitBox(new Point(0,0), new Point(20,20)); 
+        hb = new HitBox(new Point(0,0), 20, 20); 
         position = new Point(50,50);
+        velocity =0;
     }
-    
-    
+       
 }
