@@ -19,6 +19,7 @@ public class Joueur {
     Point position;
     int velocity;
     int compteur = 0;
+    int points = 0;
 
     /**
      * constructeur sans paramètre

@@ -7,6 +7,7 @@ package flappybird;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -24,12 +25,14 @@ public class Fenetre extends javax.swing.JFrame {
     Joueur j1;
     ArrayList<Obstacle> obstacles;
     Timer timer;
+    Font fontPoints;
     /**
      * Creates new form Fenetre
      */
     public Fenetre() {
-       
+        
         initComponents();
+        fontPoints = new Font("Osaka", Font.PLAIN, 36);
         timer = new Timer();
         j1 = new Joueur();
         obstacles = new ArrayList<Obstacle>();
@@ -41,12 +44,12 @@ public class Fenetre extends javax.swing.JFrame {
           
           for(Obstacle ob : obstacles){
             for (HitBox hb : ob.hb){
-                hb.point.x -=4;
+                hb.point.x -=7;
             }
         }
           
           j1.velocity += 1;
-           j1.hb.point.y += 1 * j1.velocity;
+           j1.hb.point.y += 0.75 * j1.velocity;
            
             repaint();
             j1.compteur ++;
@@ -55,6 +58,7 @@ public class Fenetre extends javax.swing.JFrame {
                j1.compteur = 0;
             }
             if(obstacles.get(0).hb.get(0).point.x < -100){
+                j1.points ++;
                 obstacles.remove(0);
             }
             
@@ -92,7 +96,7 @@ public class Fenetre extends javax.swing.JFrame {
         panneauJeu.setLayout(panneauJeuLayout);
         panneauJeuLayout.setHorizontalGroup(
             panneauJeuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1200, Short.MAX_VALUE)
+            .addGap(0, 1162, Short.MAX_VALUE)
         );
         panneauJeuLayout.setVerticalGroup(
             panneauJeuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,11 +107,17 @@ public class Fenetre extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panneauJeu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(panneauJeu, javax.swing.GroupLayout.DEFAULT_SIZE, 1162, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panneauJeu, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panneauJeu, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,7 +126,7 @@ public class Fenetre extends javax.swing.JFrame {
     private void panneauJeuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panneauJeuMousePressed
 
         // TODO add your handling code here:
-        j1.velocity -= 15;
+        j1.velocity -= 22;
         if (j1.velocity < -12){
             j1.velocity = -12;
         }
@@ -164,14 +174,14 @@ public class Fenetre extends javax.swing.JFrame {
     public void paint (Graphics g){
         
         
-        Graphics g2;            //dessiner dans un autre graphique pour éviter que ca flash
+        Graphics g2 = null;            //dessiner dans un autre graphique pour éviter que ca flash
         Dimension d = getSize();//
-        Image offImage;
+        Image offImage; 
         
         offImage = createImage(d.width, d.height);
         g2=offImage.getGraphics();
         
-        super.paint(g2);
+        //super.paint(g2);
         g2.setColor(Color.green);
         //dessin du sol
         g2.fillRect(panneauJeu.getX(), panneauJeu.getHeight()-50, panneauJeu.getWidth() , panneauJeu.getHeight()-50);
@@ -184,6 +194,9 @@ public class Fenetre extends javax.swing.JFrame {
                 g2.fillRect(hb.point.x, hb.point.y, hb.largeur, hb.hauteur);
             }
         }
+        g2.setFont(fontPoints);
+        g2.setColor(Color.black);
+        g2.drawString("Points :" + j1.points, 500, 80);
         g.drawImage(offImage,0 ,0, this);
     }
     
