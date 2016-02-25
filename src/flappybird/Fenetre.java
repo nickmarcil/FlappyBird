@@ -200,18 +200,38 @@ public class Fenetre extends javax.swing.JFrame {
         g.drawImage(offImage,0 ,0, this);
     }
     
-    public boolean collision(){
-       
-        if(j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(0).point.x &&
-                j1.hb.point.y < obstacles.get(0).hb.get(0).point.y + obstacles.get(0).hb.get(0).hauteur ||
-                j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(0).point.x &&
-                j1.hb.point.y + j1.hb.hauteur > obstacles.get(0).hb.get(1).point.y ||
-                j1.hb.point.y + j1.hb.hauteur > panneauJeu.getHeight()-60){
+//    public boolean collision(){
+//       
+//        
+//
+//for (int i = 0; i < obstacles.get(0).hb.size(); i++){
+//    if((j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(i).point.x &&
+//        j1.hb.point.y < obstacles.get(0).hb.get(0).point.y + obstacles.get(0).hb.get(i).hauteur) ||
+//        (j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(i).point.x &&
+//        j1.hb.point.y + j1.hb.hauteur > obstacles.get(0).hb.get(i).point.y) ||
+//        j1.hb.point.y + j1.hb.hauteur > panneauJeu.getHeight()-60){
+//            return true;
+//        }
+//}
+//        return false;
+//    }
+    
+    public boolean collision(){       
+
+        for (int i = 0; i < obstacles.get(0).hb.size(); i++){
+            if(j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(i).point.x){
+                if(j1.hb.point.y < obstacles.get(0).hb.get(i).point.y + obstacles.get(0).hb.get(i).hauteur &&
+                   j1.hb.point.y + j1.hb.hauteur > obstacles.get(0).hb.get(i).point.y){
+                      return true;
+                }
+            }
+            
+        }
+        if(j1.hb.point.y + j1.hb.hauteur > panneauJeu.getHeight()-50){
             return true;
         }
         return false;
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel panneauJeu;
     // End of variables declaration//GEN-END:variables
