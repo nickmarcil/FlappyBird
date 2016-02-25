@@ -21,7 +21,7 @@ public class Obstacle {
      */
     public Obstacle() {
        hb =  new ArrayList<HitBox>();
-       hb.add(new HitBox(new Point(1300, 0), 100, 200));
-       hb.add(new HitBox(new Point(1300, 350), 100, 200));
+       hb.add(new HitBox(new Point(1300, 0), 100, 180));
+       hb.add(new HitBox(new Point(1300, 370), 100, 180));
     }
 }

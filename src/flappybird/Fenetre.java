@@ -31,8 +31,6 @@ public class Fenetre extends javax.swing.JFrame {
        
         initComponents();
         timer = new Timer();
-        timer.cancel();
-        timer = new Timer();
         j1 = new Joueur();
         obstacles = new ArrayList<Obstacle>();
         obstacles.add(new Obstacle());
@@ -48,10 +46,8 @@ public class Fenetre extends javax.swing.JFrame {
         }
           
           j1.velocity += 1;
-           j1.position.y += 1 * j1.velocity;
-           if (j1.position.y > panneauJeu.getHeight()-60){
-               j1.position.y = panneauJeu.getHeight()-60;
-           }
+           j1.hb.point.y += 1 * j1.velocity;
+           
             paint(getGraphics());
             j1.compteur ++;
             if (j1.compteur == 150){
@@ -118,6 +114,7 @@ public class Fenetre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panneauJeuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panneauJeuMousePressed
+
         // TODO add your handling code here:
         j1.velocity -= 15;
         if (j1.velocity < -12){
@@ -126,7 +123,7 @@ public class Fenetre extends javax.swing.JFrame {
         else if(j1.velocity > 39){
             j1.velocity = 40;
         }
-        
+      
     }//GEN-LAST:event_panneauJeuMousePressed
 
     /**
@@ -192,19 +189,14 @@ public class Fenetre extends javax.swing.JFrame {
     
     public boolean collision(){
        
-        if(j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(0).point.x){
-            for (int i = 0; i > obstacles.get(0).hb.size(); i++){
-                if(j1.hb.point.y > obstacles.get(i).hb.get(i).point.y + obstacles.get(i).hb.get(i).hauteur){
-                    return false;
-                }
-                else if(j1.hb.point.y + j1.hb.hauteur < obstacles.get(i).hb.get(i).point.y){
-                    return false;
-                }
-                else 
-                    return true;
-            }
+        if(j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(0).point.x &&
+                j1.hb.point.y < obstacles.get(0).hb.get(0).point.y + obstacles.get(0).hb.get(0).hauteur ||
+                j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(0).point.x &&
+                j1.hb.point.y + j1.hb.hauteur > obstacles.get(0).hb.get(1).point.y ||
+                j1.hb.point.y + j1.hb.hauteur > panneauJeu.getHeight()-50){
+            return true;
         }
-            return false;
+        return false;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
