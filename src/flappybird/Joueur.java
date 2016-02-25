@@ -24,8 +24,8 @@ public class Joueur {
      * constructeur sans paramètre
      */
     public Joueur() {
-        hb = new HitBox(new Point(0,0), 20, 20); 
-        position = new Point(50,50);
+        hb = new HitBox(new Point(50,50), 20, 20); 
+        position = new Point(0,0);
         velocity =0;
     }
        

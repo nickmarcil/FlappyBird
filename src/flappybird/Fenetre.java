@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
 import javafx.scene.layout.HBox;
+import jdk.nashorn.internal.parser.TokenType;
 
 /**
  *
@@ -42,7 +43,7 @@ public class Fenetre extends javax.swing.JFrame {
           
           for(Obstacle ob : obstacles){
             for (HitBox hb : ob.hb){
-                hb.point.x -=8;
+                hb.point.x -=4;
             }
         }
           
@@ -192,19 +193,18 @@ public class Fenetre extends javax.swing.JFrame {
     public boolean collision(){
        
         if(j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(0).point.x){
-            for (int i = 0; i < obstacles.get(0).hb.size(); i++){
+            for (int i = 0; i > obstacles.get(0).hb.size(); i++){
                 if(j1.hb.point.y > obstacles.get(i).hb.get(i).point.y + obstacles.get(i).hb.get(i).hauteur){
                     return false;
                 }
-                if(j1.hb.point.y + j1.hb.hauteur < obstacles.get(i).hb.get(i).point.y){
+                else if(j1.hb.point.y + j1.hb.hauteur < obstacles.get(i).hb.get(i).point.y){
                     return false;
                 }
                 else 
                     return true;
             }
         }
-        
-        return false;
+            return false;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
