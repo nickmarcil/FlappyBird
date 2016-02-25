@@ -12,8 +12,8 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
-import javafx.scene.layout.HBox;
-import jdk.nashorn.internal.parser.TokenType;
+//import javafx.scene.layout.HBox;
+//import jdk.nashorn.internal.parser.TokenType;
 
 /**
  *
@@ -48,7 +48,7 @@ public class Fenetre extends javax.swing.JFrame {
           j1.velocity += 1;
            j1.hb.point.y += 1 * j1.velocity;
            
-            paint(getGraphics());
+            repaint();
             j1.compteur ++;
             if (j1.compteur == 150){
                obstacles.add(new Obstacle());
@@ -193,7 +193,7 @@ public class Fenetre extends javax.swing.JFrame {
                 j1.hb.point.y < obstacles.get(0).hb.get(0).point.y + obstacles.get(0).hb.get(0).hauteur ||
                 j1.hb.point.x + j1.hb.largeur > obstacles.get(0).hb.get(0).point.x &&
                 j1.hb.point.y + j1.hb.hauteur > obstacles.get(0).hb.get(1).point.y ||
-                j1.hb.point.y + j1.hb.hauteur > panneauJeu.getHeight()-50){
+                j1.hb.point.y + j1.hb.hauteur > panneauJeu.getHeight()-60){
             return true;
         }
         return false;
