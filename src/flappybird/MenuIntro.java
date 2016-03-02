@@ -50,8 +50,8 @@ public class MenuIntro extends javax.swing.JPanel {
                 repaint();
             }
         },16, 16);
-        image = ImageIO.read(new File("src/images/background.jpg"));
-        imageOiseau = ImageIO.read(new File("src/images/bird.gif"));
+        image = ImageIO.read(new File("background.jpg"));
+        imageOiseau = ImageIO.read(new File("bird.gif"));
         jf.add(this);
         jf.setVisible(true);
         

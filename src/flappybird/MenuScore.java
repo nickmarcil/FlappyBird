@@ -39,8 +39,8 @@ public class MenuScore extends javax.swing.JPanel {
     public MenuScore(JFrame j) throws IOException {
         initComponents();
         jf = j;
-        image = ImageIO.read(new File("src/images/background2.jpg"));
-        imageOiseau = ImageIO.read(new File("src/images/bird.gif"));
+        image = ImageIO.read(new File("background2.jpg"));
+        imageOiseau = ImageIO.read(new File("bird.gif"));
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

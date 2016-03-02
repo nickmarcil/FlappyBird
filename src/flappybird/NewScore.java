@@ -43,8 +43,8 @@ public class NewScore extends javax.swing.JPanel {
         this.jf = jf;
         this.score = score;
         tbxNom.setDocument(new JTextFieldLimit(20));
-        image = ImageIO.read(new File("src/images/background2.jpg"));
-        imageOiseau = ImageIO.read(new File("src/images/bird.gif"));
+        image = ImageIO.read(new File("background2.jpg"));
+        imageOiseau = ImageIO.read(new File("bird.gif"));
         lblScore.setText("Score : " + score);
         
         Timer timer = new Timer();
