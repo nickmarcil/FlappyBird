@@ -113,4 +113,18 @@ public class SelectJoueur {
         System.err.println("***** END getTop10Joueur()");
         return top10Joueur;
     }// end getTop10Joueur()
+    
+    public boolean entreeTop10(int score) throws Exception
+    {
+        ArrayList<JoueurBD> top10 = new ArrayList<>();
+        top10 = getTop10Joueur();
+        for (int i = 0; i < top10.size(); i++) {
+            if (score > top10.get(i).getJoueur_score())
+                return true;
+        }
+        if (top10.size() < 10)
+            return true;
+        
+        return false;
+    }
 }

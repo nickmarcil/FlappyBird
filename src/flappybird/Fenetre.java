@@ -69,14 +69,35 @@ public class Fenetre extends javax.swing.JFrame {
             if (collision()){
                 dispose();
                 timer.cancel();
-                JFrame nouveauJf = new JFrame("Scores");
-                nouveauJf.setSize(430, 600);
+                SelectJoueur sj = new SelectJoueur();
               try {
-                  nouveauJf.add(new MenuScore(nouveauJf));
-              } catch (IOException ex) {
-                  Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
-              }
-              nouveauJf.setVisible(true);
+                if (sj.entreeTop10(j1.points))
+                {
+                    JFrame newJf = new JFrame("Top score!");
+                    newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    newJf.setSize(294, 300);
+                    try {
+                        newJf.add(new NewScore(newJf, j1.points));
+                        newJf.setVisible(true);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MenuIntro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else
+                {
+                    JFrame nouveauJf = new JFrame("Scores");
+                    nouveauJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    nouveauJf.setSize(430, 600);
+                  try {
+                      nouveauJf.add(new MenuScore(nouveauJf));
+                  } catch (IOException ex) {
+                      Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+                  nouveauJf.setVisible(true);
+                    }
+                  } catch (Exception ex) {
+                      Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+                  }
             }
           }
         

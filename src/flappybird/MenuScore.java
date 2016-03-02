@@ -128,16 +128,16 @@ public class MenuScore extends javax.swing.JPanel {
                     .addComponent(jLabel2))
                 .addGap(73, 73, 73))
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(top10Joueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRejouer))
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                            .addComponent(lblRejouer)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(top10Joueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +196,7 @@ public class MenuScore extends javax.swing.JPanel {
     }//GEN-LAST:event_lblQuitterMousePressed
 
     private void top10Joueur2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_top10Joueur2MouseEntered
-        birdX = 20;
+        birdX = 5;
         birdY = 80;
     }//GEN-LAST:event_top10Joueur2MouseEntered
 

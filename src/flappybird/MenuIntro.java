@@ -31,8 +31,6 @@ public class MenuIntro extends javax.swing.JPanel {
     /**
      * Creates new form MenuIntro
      */
-    ImageIcon img;
-    
     BufferedImage image;
     BufferedImage imageOiseau;
     int birdX = 0;
@@ -118,6 +116,40 @@ public class MenuIntro extends javax.swing.JPanel {
             public void mouseExited(MouseEvent e) {
             }
         });
+        
+        lblCopyright.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                jf.dispose();
+                JFrame newJf = new JFrame("Top score!");
+                newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                newJf.setSize(294, 300);
+                try {
+                    newJf.add(new NewScore(newJf, 100));
+                    newJf.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuIntro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+            
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
     }
 
     /**
@@ -133,6 +165,7 @@ public class MenuIntro extends javax.swing.JPanel {
         lblScore = new javax.swing.JLabel();
         lblQuitter = new javax.swing.JLabel();
         lblCommencer = new javax.swing.JLabel();
+        lblCopyright = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tiger Rag LET", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
@@ -171,6 +204,13 @@ public class MenuIntro extends javax.swing.JPanel {
             }
         });
 
+        lblCopyright.setText("©");
+        lblCopyright.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCopyrightMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,7 +223,9 @@ public class MenuIntro extends javax.swing.JPanel {
                             .addComponent(lblCommencer)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
-                                .addComponent(jLabel1))))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblCopyright))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(167, 167, 167)
                         .addComponent(lblQuitter))
@@ -195,7 +237,9 @@ public class MenuIntro extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblCopyright))
                 .addGap(18, 18, 18)
                 .addComponent(lblCommencer)
                 .addGap(22, 22, 22)
@@ -233,6 +277,10 @@ public class MenuIntro extends javax.swing.JPanel {
         birdY = 210;
     }//GEN-LAST:event_lblQuitterMouseEntered
 
+    private void lblCopyrightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCopyrightMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCopyrightMouseClicked
+
     public void paintComponent(Graphics g){
         double rotationRequired = Math.toRadians (rotation);
         AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, imageOiseau.getWidth()/2, imageOiseau.getHeight()/2);
@@ -260,6 +308,7 @@ public class MenuIntro extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblCommencer;
+    private javax.swing.JLabel lblCopyright;
     private javax.swing.JLabel lblQuitter;
     private javax.swing.JLabel lblScore;
     // End of variables declaration//GEN-END:variables
