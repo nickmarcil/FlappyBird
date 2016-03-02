@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flappybird;
+package flappyBird;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -62,7 +64,45 @@ public class MenuIntro extends javax.swing.JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                jf.setVisible(false);
+                jf.dispose();
+                Fenetre f = new Fenetre();
+                f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                f.setVisible(true);
+
+            }
+            
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+        
+        lblScore.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                jf.dispose();
+                JFrame newJf = new JFrame();
+                newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                newJf.setSize(430, 600);
+                try {
+                    newJf.add(new flappyBird.MenuScore(newJf));
+                    newJf.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MenuIntro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
             
 
@@ -90,33 +130,33 @@ public class MenuIntro extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblScore = new javax.swing.JLabel();
+        lblQuitter = new javax.swing.JLabel();
         lblCommencer = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tiger Rag LET", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setText("Flappy bird");
 
-        jLabel2.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
-        jLabel2.setText("Afficher les scores");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblScore.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
+        lblScore.setText("Afficher les scores");
+        lblScore.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel2MouseEntered(evt);
+                lblScoreMouseEntered(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel2MousePressed(evt);
+                lblScoreMousePressed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
-        jLabel3.setText("Quitter");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblQuitter.setFont(new java.awt.Font("Segoe Print", 0, 24)); // NOI18N
+        lblQuitter.setText("Quitter");
+        lblQuitter.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel3MouseEntered(evt);
+                lblQuitterMouseEntered(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel3MousePressed(evt);
+                lblQuitterMousePressed(evt);
             }
         });
 
@@ -146,10 +186,10 @@ public class MenuIntro extends javax.swing.JPanel {
                                 .addComponent(jLabel1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(167, 167, 167)
-                        .addComponent(jLabel3))
+                        .addComponent(lblQuitter))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(106, 106, 106)
-                        .addComponent(jLabel2)))
+                        .addComponent(lblScore)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -159,26 +199,23 @@ public class MenuIntro extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(lblCommencer)
                 .addGap(22, 22, 22)
-                .addComponent(jLabel2)
+                .addComponent(lblScore)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(lblQuitter)
                 .addContainerGap(82, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+    private void lblScoreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblScoreMousePressed
  
-    }//GEN-LAST:event_jLabel2MousePressed
+    }//GEN-LAST:event_lblScoreMousePressed
 
-    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MousePressed
+    private void lblQuitterMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuitterMousePressed
+        System.exit(0);
+    }//GEN-LAST:event_lblQuitterMousePressed
 
     private void lblCommencerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCommencerMousePressed
-        Fenetre f = new Fenetre();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setVisible(true);
-        this.setVisible(false);
+
     }//GEN-LAST:event_lblCommencerMousePressed
 
     private void lblCommencerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCommencerMouseEntered
@@ -186,15 +223,15 @@ public class MenuIntro extends javax.swing.JPanel {
         birdY = 80;
     }//GEN-LAST:event_lblCommencerMouseEntered
 
-    private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+    private void lblScoreMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblScoreMouseEntered
         birdX = 60;
         birdY = 145;
-    }//GEN-LAST:event_jLabel2MouseEntered
+    }//GEN-LAST:event_lblScoreMouseEntered
 
-    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+    private void lblQuitterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuitterMouseEntered
         birdX = 120;
         birdY = 210;
-    }//GEN-LAST:event_jLabel3MouseEntered
+    }//GEN-LAST:event_lblQuitterMouseEntered
 
     public void paintComponent(Graphics g){
         double rotationRequired = Math.toRadians (rotation);
@@ -222,8 +259,8 @@ public class MenuIntro extends javax.swing.JPanel {
       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblCommencer;
+    private javax.swing.JLabel lblQuitter;
+    private javax.swing.JLabel lblScore;
     // End of variables declaration//GEN-END:variables
 }

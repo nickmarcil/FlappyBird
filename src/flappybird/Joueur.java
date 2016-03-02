@@ -1,4 +1,4 @@
-package flappybird;
+package flappyBird;
 
 
 import java.awt.Point;

@@ -3,16 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flappybird;
+package flappyBird;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 //import javafx.scene.layout.HBox;
 //import jdk.nashorn.internal.parser.TokenType;
 
@@ -63,7 +67,16 @@ public class Fenetre extends javax.swing.JFrame {
             }
             
             if (collision()){
-                System.exit(0);
+                dispose();
+                timer.cancel();
+                JFrame nouveauJf = new JFrame("Scores");
+                nouveauJf.setSize(430, 600);
+              try {
+                  nouveauJf.add(new MenuScore(nouveauJf));
+              } catch (IOException ex) {
+                  Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+              }
+              nouveauJf.setVisible(true);
             }
           }
         
@@ -136,52 +149,17 @@ public class Fenetre extends javax.swing.JFrame {
       
     }//GEN-LAST:event_panneauJeuMousePressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Fenetre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Fenetre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Fenetre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Fenetre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Fenetre().setVisible(true);
-            }
-        });
-    }
-
+    @Override
     public void paint (Graphics g){
-        
-        
-        Graphics g2 = null;            //dessiner dans un autre graphique pour éviter que ca flash
+
+        Graphics g2;            //dessiner dans un autre graphique pour éviter que ca flash
         Dimension d = getSize();//
         Image offImage; 
         
         offImage = createImage(d.width, d.height);
         g2=offImage.getGraphics();
         
-        //super.paint(g2);
+        super.paint(g2);
         g2.setColor(Color.green);
         //dessin du sol
         g2.fillRect(panneauJeu.getX(), panneauJeu.getHeight()-50, panneauJeu.getWidth() , panneauJeu.getHeight()-50);
@@ -197,6 +175,7 @@ public class Fenetre extends javax.swing.JFrame {
         g2.setFont(fontPoints);
         g2.setColor(Color.black);
         g2.drawString("Points :" + j1.points, 500, 80);
+        
         g.drawImage(offImage,0 ,0, this);
     }
     
