@@ -39,6 +39,7 @@ public class Fenetre extends javax.swing.JFrame {
         fontPoints = new Font("Osaka", Font.PLAIN, 36);
         timer = new Timer();
         j1 = new Joueur();
+        setTitle("Flap flap!");
         obstacles = new ArrayList<Obstacle>();
         obstacles.add(new Obstacle());
         timer.schedule(new TimerTask() {

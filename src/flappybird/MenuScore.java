@@ -32,6 +32,7 @@ public class MenuScore extends javax.swing.JPanel {
     int birdY = 0;
     int rotation = 0;
     JFrame jf;
+    Timer timer;
 
     /**
      * Creates new form MenuScore
@@ -41,7 +42,7 @@ public class MenuScore extends javax.swing.JPanel {
         jf = j;
         image = ImageIO.read(new File("background2.jpg"));
         imageOiseau = ImageIO.read(new File("bird.gif"));
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -163,6 +164,7 @@ public class MenuScore extends javax.swing.JPanel {
 
     private void lblMenuPrincipalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMenuPrincipalMousePressed
         jf.dispose();
+        timer.cancel();
         final JFrame nvJf = new JFrame("Menu");
         nvJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         nvJf.setSize(426, 330);
@@ -181,6 +183,7 @@ public class MenuScore extends javax.swing.JPanel {
 
     private void lblRejouerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRejouerMousePressed
         jf.dispose();
+        timer.cancel();
         flappyBird.Fenetre f = new flappyBird.Fenetre();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);

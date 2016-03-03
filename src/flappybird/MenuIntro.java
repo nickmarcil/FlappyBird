@@ -36,10 +36,11 @@ public class MenuIntro extends javax.swing.JPanel {
     int birdX = 0;
     int birdY = 0;
     int rotation = 0;
+    Timer timer;
     
     public MenuIntro(final JFrame jf) throws IOException {
         initComponents();
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -63,6 +64,7 @@ public class MenuIntro extends javax.swing.JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 jf.dispose();
+                timer.cancel();
                 Fenetre f = new Fenetre();
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setVisible(true);
@@ -91,7 +93,8 @@ public class MenuIntro extends javax.swing.JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 jf.dispose();
-                JFrame newJf = new JFrame();
+                timer.cancel();
+                JFrame newJf = new JFrame("Top score");
                 newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 newJf.setSize(430, 600);
                 try {
@@ -125,6 +128,7 @@ public class MenuIntro extends javax.swing.JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 jf.dispose();
+                timer.cancel();
                 JFrame newJf = new JFrame("Top score!");
                 newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 newJf.setSize(294, 300);

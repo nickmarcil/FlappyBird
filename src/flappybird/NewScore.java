@@ -37,6 +37,7 @@ public class NewScore extends javax.swing.JPanel {
     int rotation = 0;
     JFrame jf;
     int score = 0;
+    Timer timer;
     
     public NewScore(JFrame jf, int score) throws IOException {
         initComponents();
@@ -47,7 +48,7 @@ public class NewScore extends javax.swing.JPanel {
         imageOiseau = ImageIO.read(new File("bird.gif"));
         lblScore.setText("Score : " + score);
         
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -178,7 +179,8 @@ public class NewScore extends javax.swing.JPanel {
         if (n ==  JOptionPane.YES_OPTION)
         {
             jf.dispose();
-        JFrame newJf = new JFrame();
+            timer.cancel();
+        JFrame newJf = new JFrame("Top score!");
         newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newJf.setSize(430, 600);
         try {
@@ -208,7 +210,8 @@ public class NewScore extends javax.swing.JPanel {
                 Logger.getLogger(NewScore.class.getName()).log(Level.SEVERE, null, ex);
             }
             jf.dispose();
-            JFrame newJf = new JFrame();
+            timer.cancel();
+            JFrame newJf = new JFrame("Top score!");
             newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             newJf.setSize(430, 600);
             try {

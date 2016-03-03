@@ -24,7 +24,7 @@ public class FlappyBird {
      */
     public static void main(String[] args) throws IOException {
         
-        final JFrame jf = new JFrame();
+        final JFrame jf = new JFrame("Menu");
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setSize(new Dimension(425, 300));
         jf.add(new MenuIntro(jf));
