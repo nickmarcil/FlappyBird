@@ -68,6 +68,7 @@ public class MenuIntro extends javax.swing.JPanel {
                 Fenetre f = new Fenetre();
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 f.setVisible(true);
+                //f.jeuRun();
 
             }
             

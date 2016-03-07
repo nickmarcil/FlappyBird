@@ -30,80 +30,184 @@ public class Fenetre extends javax.swing.JFrame {
     ArrayList<Obstacle> obstacles;
     Timer timer;
     Font fontPoints;
+    public static final long secInNanosec = 1000000000L;
+    
+    /**
+     * Time of one millisecond in nanoseconds.
+     * 1 millisecond = 1 000 000 nanoseconds
+     */
+    public static final long milisecInNanosec = 1000000L;
+    
+    /**
+     * FPS - Frames per second
+     * How many times per second the game should update?
+     */
+    private final int GAME_FPS = 60;
+    /**
+     * Pause between updates. It is in nanoseconds.
+     */
+    private final long GAME_UPDATE_PERIOD = secInNanosec / GAME_FPS;
     /**
      * Creates new form Fenetre
      */
-    public Fenetre() {
+    private long lastTime;
         
+    public Fenetre() {
         initComponents();
         fontPoints = new Font("Osaka", Font.PLAIN, 36);
         timer = new Timer();
         j1 = new Joueur();
         setTitle("Flap flap!");
+        setVisible(true);
         obstacles = new ArrayList<Obstacle>();
         obstacles.add(new Obstacle());
-        timer.schedule(new TimerTask() {
-        @Override
-        public void run() {
-          // Your database code here
-          
-          for(Obstacle ob : obstacles){
-            for (HitBox hb : ob.hb){
-                hb.point.x -=7;
+               
+              //We start game in new thread.
+        Thread gameThread = new Thread() {
+            @Override
+            public void run(){
+                jeuRun();
             }
+        };
+        gameThread.start();
+       
         }
-          
-          j1.velocity += 1;
-           j1.hb.point.y += 0.75 * j1.velocity;
-           
-            repaint();
-            j1.compteur ++;
-            if (j1.compteur == 80){
-               obstacles.add(new Obstacle());
-               j1.compteur = 0;
+        
+    public void jeuRun(){
+        
+        // This variables are used for calculating the time that defines for how long we should put threat to sleep to meet the GAME_FPS.
+        long beginTime, timeTaken, timeLeft;
+        
+         while(true)
+        {
+            beginTime = System.nanoTime();
+            //lastTime = System.nanoTime();
+             for(Obstacle ob : obstacles){
+                for (HitBox hb : ob.hb) {
+                    hb.point.x -= 5;
+                }
             }
-            if(obstacles.get(0).hb.get(0).point.x < -100){
-                j1.points ++;
+
+            j1.velocity += 1;
+            j1.hb.point.y += 0.75 * j1.velocity;
+
+            j1.compteur++;
+            if (j1.compteur == 80) {
+                obstacles.add(new Obstacle());
+                j1.compteur = 0;
+            }
+            if (obstacles.get(0).hb.get(0).point.x < -100) {
+                j1.points++;
                 obstacles.remove(0);
             }
-            
-            if (collision()){
+
+            if (collision()) {
                 dispose();
                 timer.cancel();
                 SelectJoueur sj = new SelectJoueur();
-              try {
-                if (sj.entreeTop10(j1.points))
-                {
-                    JFrame newJf = new JFrame("Top score!");
-                    newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    newJf.setSize(400, 300);
-                    try {
-                        newJf.add(new NewScore(newJf, j1.points));
-                        newJf.setVisible(true);
-                    } catch (Exception ex) {
-                        Logger.getLogger(MenuIntro.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    if (sj.entreeTop10(j1.points)) {
+                        JFrame newJf = new JFrame("Top score!");
+                        newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        newJf.setSize(400, 300);
+                        try {
+                            newJf.add(new NewScore(newJf, j1.points));
+                            newJf.setVisible(true);
+                        } catch (Exception ex) {
+                            Logger.getLogger(MenuIntro.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        JFrame nouveauJf = new JFrame("Scores");
+                        nouveauJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        nouveauJf.setSize(475, 600);
+                        try {
+                            nouveauJf.add(new MenuScore(nouveauJf));
+                        } catch (IOException ex) {
+                            Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        nouveauJf.setVisible(true);
                     }
+                } catch (Exception ex) {
+                    Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                else
-                {
-                    JFrame nouveauJf = new JFrame("Scores");
-                    nouveauJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    nouveauJf.setSize(475, 600);
-                  try {
-                      nouveauJf.add(new MenuScore(nouveauJf));
-                  } catch (IOException ex) {
-                      Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
-                  }
-                  nouveauJf.setVisible(true);
-                    }
-                  } catch (Exception ex) {
-                      Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
-                  }
+                break;
             }
-          }
-        
-      }, 16,16);
+            repaint();
+            // Here we calculate the time that defines for how long we should put threat to sleep to meet the GAME_FPS.
+            timeTaken = System.nanoTime() - beginTime;
+            timeLeft = (GAME_UPDATE_PERIOD - timeTaken) / milisecInNanosec; // In milliseconds
+            // If the time is less than 10 milliseconds, then we will put thread to sleep for 10 millisecond so that some other thread can do some work.
+            if (timeLeft < 10) 
+                timeLeft = 10; //set a minimum
+            try {
+                 //Provides the necessary delay and also yields control so that other thread can do work.
+                 Thread.sleep(timeLeft);
+            } catch (InterruptedException ex) {
+                System.out.println("pas de pause");
+            }
+        }
     }
+//        timer.schedule(new TimerTask() {
+//        @Override
+//        public void run() {
+//          // Your database code here
+//          
+//          for(Obstacle ob : obstacles){
+//            for (HitBox hb : ob.hb){
+//                hb.point.x -=7;
+//            }
+//        }
+//          
+//          j1.velocity += 1;
+//           j1.hb.point.y += 0.75 * j1.velocity;
+//           
+//            repaint();
+//            j1.compteur ++;
+//            if (j1.compteur == 80){
+//               obstacles.add(new Obstacle());
+//               j1.compteur = 0;
+//            }
+//            if(obstacles.get(0).hb.get(0).point.x < -100){
+//                j1.points ++;
+//                obstacles.remove(0);
+//            }
+//            
+//            if (collision()){
+//                dispose();
+//                timer.cancel();
+//                SelectJoueur sj = new SelectJoueur();
+//              try {
+//                if (sj.entreeTop10(j1.points))
+//                {
+//                    JFrame newJf = new JFrame("Top score!");
+//                    newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                    newJf.setSize(400, 300);
+//                    try {
+//                        newJf.add(new NewScore(newJf, j1.points));
+//                        newJf.setVisible(true);
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(MenuIntro.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//                else
+//                {
+//                    JFrame nouveauJf = new JFrame("Scores");
+//                    nouveauJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                    nouveauJf.setSize(475, 600);
+//                  try {
+//                      nouveauJf.add(new MenuScore(nouveauJf));
+//                  } catch (IOException ex) {
+//                      Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+//                  }
+//                  nouveauJf.setVisible(true);
+//                    }
+//                  } catch (Exception ex) {
+//                      Logger.getLogger(Fenetre.class.getName()).log(Level.SEVERE, null, ex);
+//                  }
+//            }
+//          }
+//        
+//      }, 16,16);
 
     
     /**
