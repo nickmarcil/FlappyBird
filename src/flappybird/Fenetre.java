@@ -58,7 +58,7 @@ public class Fenetre extends javax.swing.JFrame {
            
             repaint();
             j1.compteur ++;
-            if (j1.compteur == 150){
+            if (j1.compteur == 80){
                obstacles.add(new Obstacle());
                j1.compteur = 0;
             }
@@ -76,7 +76,7 @@ public class Fenetre extends javax.swing.JFrame {
                 {
                     JFrame newJf = new JFrame("Top score!");
                     newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    newJf.setSize(294, 300);
+                    newJf.setSize(400, 300);
                     try {
                         newJf.add(new NewScore(newJf, j1.points));
                         newJf.setVisible(true);
@@ -88,7 +88,7 @@ public class Fenetre extends javax.swing.JFrame {
                 {
                     JFrame nouveauJf = new JFrame("Scores");
                     nouveauJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    nouveauJf.setSize(430, 600);
+                    nouveauJf.setSize(475, 600);
                   try {
                       nouveauJf.add(new MenuScore(nouveauJf));
                   } catch (IOException ex) {

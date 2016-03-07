@@ -96,7 +96,7 @@ public class MenuIntro extends javax.swing.JPanel {
                 timer.cancel();
                 JFrame newJf = new JFrame("Top score");
                 newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                newJf.setSize(430, 600);
+                newJf.setSize(475, 600);
                 try {
                     newJf.add(new flappyBird.MenuScore(newJf));
                     newJf.setVisible(true);
@@ -131,7 +131,7 @@ public class MenuIntro extends javax.swing.JPanel {
                 timer.cancel();
                 JFrame newJf = new JFrame("Top score!");
                 newJf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                newJf.setSize(294, 300);
+                newJf.setSize(400, 300);
                 try {
                     newJf.add(new NewScore(newJf, 100));
                     newJf.setVisible(true);
@@ -223,10 +223,9 @@ public class MenuIntro extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblCommencer)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblCopyright))))
@@ -236,7 +235,7 @@ public class MenuIntro extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(lblScore)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
