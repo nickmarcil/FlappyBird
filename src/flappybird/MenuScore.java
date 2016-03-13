@@ -13,15 +13,12 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,8 +40,6 @@ public class MenuScore extends javax.swing.JPanel {
     public MenuScore(JFrame j) throws IOException {
         initComponents();
         jf = j;
-        ImageIcon trash = new ImageIcon("trash.gif");
-        btnTrash.setIcon(trash);
         image = ImageIO.read(new File("background2.jpg"));
         imageOiseau = ImageIO.read(new File("bird.gif"));
         timer = new Timer();
@@ -78,7 +73,6 @@ public class MenuScore extends javax.swing.JPanel {
         } catch (java.lang.Exception e1) {
             e1.printStackTrace();
         }
-        btnTrash = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Tiger Rag LET", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
@@ -124,12 +118,6 @@ public class MenuScore extends javax.swing.JPanel {
             }
         });
 
-        btnTrash.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTrashActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,18 +129,16 @@ public class MenuScore extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblMenuPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(top10Joueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblRejouer)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblQuitter)
-                                .addGap(45, 45, 45))))
+                                .addGap(140, 140, 140)
+                                .addComponent(lblQuitter))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(btnTrash, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33)
+                        .addComponent(top10Joueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -162,15 +148,13 @@ public class MenuScore extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(top10Joueur2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTrash, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRejouer)
                     .addComponent(lblQuitter))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMenuPrincipal)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,32 +204,6 @@ public class MenuScore extends javax.swing.JPanel {
         birdY = 80;
     }//GEN-LAST:event_top10Joueur2MouseEntered
 
-    private void btnTrashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrashActionPerformed
-        int n = JOptionPane.showConfirmDialog(jf,"Attention, vous allez supprimer TOUS les score, vous êtes sûr?","Suppression!",JOptionPane.YES_NO_OPTION);
-        if (n ==  JOptionPane.YES_OPTION)
-        {
-            SelectJoueur sj = new SelectJoueur();
-            try {
-                sj.supprimerTout();
-            } catch (SQLException ex) {
-                Logger.getLogger(MenuScore.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(MenuScore.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            jf.dispose();
-            try {
-                JFrame j = new JFrame("Score");
-                j.add(new MenuScore(jf));
-                j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                j.setSize(475, 600);
-                j.setVisible(true);
-                
-            } catch (IOException ex) {
-                Logger.getLogger(MenuScore.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_btnTrashActionPerformed
-
 
     public void paintComponent(Graphics g){
         double rotationRequired = Math.toRadians (rotation);
@@ -271,7 +229,6 @@ public class MenuScore extends javax.swing.JPanel {
         g.drawImage(offImage,0 ,0, this);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTrash;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblMenuPrincipal;
     private javax.swing.JLabel lblQuitter;

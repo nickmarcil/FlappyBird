@@ -12,7 +12,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.TimerTask;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +29,6 @@ public class Fenetre extends javax.swing.JFrame {
     ArrayList<Obstacle> obstacles;
     Timer timer;
     Font fontPoints;
-    boolean start = false;
     public static final long secInNanosec = 1000000000L;
     
     /**
@@ -81,11 +79,9 @@ public class Fenetre extends javax.swing.JFrame {
         
          while(true)
         {
-   
+           
             beginTime = System.nanoTime();
-            if (start)
-            {
-                //lastTime = System.nanoTime();
+            //lastTime = System.nanoTime();
              for(Obstacle ob : obstacles){
                 for (HitBox hb : ob.hb) {
                     hb.point.x -= 5;
@@ -136,12 +132,6 @@ public class Fenetre extends javax.swing.JFrame {
                 }
                 break;
             }
-            else
-            {
-                
-            }
-            }
-            
             repaint();
             // Here we calculate the time that defines for how long we should put threat to sleep to meet the GAME_FPS.
             timeTaken = System.nanoTime() - beginTime;
@@ -275,7 +265,6 @@ public class Fenetre extends javax.swing.JFrame {
     private void panneauJeuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panneauJeuMousePressed
 
         // TODO add your handling code here:
-        start = true;
         j1.velocity -= 22;
         if (j1.velocity < -12){
             j1.velocity = -12;
@@ -309,15 +298,9 @@ public class Fenetre extends javax.swing.JFrame {
                 g2.fillRect(hb.point.x, hb.point.y, hb.largeur, hb.hauteur);
             }
         }
-
         g2.setFont(fontPoints);
         g2.setColor(Color.black);
         g2.drawString("Points :" + j1.points, 500, 80);
-        if (!start)
-        {
-            g2.setColor(Color.red);
-            g2.drawString("Cliquer avec la souris pour commencer!", 300, 300);
-        }
         
         g.drawImage(offImage,0 ,0, this);
     }

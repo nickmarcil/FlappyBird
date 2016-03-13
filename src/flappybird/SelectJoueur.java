@@ -127,33 +127,4 @@ public class SelectJoueur {
         
         return false;
     }
-    
-    public void supprimerTout() throws SQLException, Exception
-    {
-        System.err.println("***** BEGIN supprimerTout()");
-        Connection con;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        DatabaseTools databaseTools = new DatabaseTools();
-        con = databaseTools.createConnection();
-        try {
-            stmt = con.createStatement();
-            String oneRequete = "truncate joueur";
-            databaseTools.executeSQL(con, oneRequete);
-        } // End try // End try
-        catch (SQLException e) {
-            System.err.println("***** Database error at supprimerTout :"
-                    + e.getMessage());
-        } // End catch
-        finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stmt != null) {
-                stmt.close();
-            }
-        }// end finally
-        System.err.println("***** END supprimerTout()");
-    }
 }
