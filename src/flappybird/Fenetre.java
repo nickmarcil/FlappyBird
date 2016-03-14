@@ -79,7 +79,10 @@ public class Fenetre extends javax.swing.JFrame {
         
          while(true)
         {
+<<<<<<< HEAD
            
+=======
+>>>>>>> parent of e2ee1a5... Delete joueur + clique
             beginTime = System.nanoTime();
             //lastTime = System.nanoTime();
              for(Obstacle ob : obstacles){
